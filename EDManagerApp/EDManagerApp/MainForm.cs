@@ -133,7 +133,7 @@ namespace EDManagerApp
             // 
             // dropDown
             // 
-            this.dropDown.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dropDown.Items.AddRange(new [] {
             this.toolStripButton_StorageOpen,
             this.toolStripButton_StorageSave});
             this.dropDown.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
@@ -237,6 +237,10 @@ namespace EDManagerApp
             this.edDataGridView.Size = new System.Drawing.Size(797, 365);
             this.edDataGridView.TabIndex = 1;
             this.edDataGridView.SelectionChanged += new System.EventHandler(this.OnDataGridView_SelectionChanged);
+            this.edDataGridView.DoubleClick += new EventHandler(this.OnToolStripButtonEdit_Click);
+            //ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
+            //contextMenuStrip.Items.AddRange(new[] { this.toolStripButton_Add, this.toolStripButton_Edit, this.toolStripButton_Delete });
+            //this.edDataGridView.ContextMenuStrip = contextMenuStrip;
             // 
             // MainForm
             // 

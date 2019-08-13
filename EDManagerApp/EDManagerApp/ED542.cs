@@ -147,7 +147,7 @@ namespace EDManagerApp
             get => m_EDTypeNo;
             set
             {
-                if (value != null && value.Length > 100)
+                if ((value != null) && (value.Length > 100))
                 {
                     throw new Exception("Строка EDTypeNo должна содержать не более 100 символов.");
                 }
