@@ -238,9 +238,6 @@ namespace EDManagerApp
             this.edDataGridView.TabIndex = 1;
             this.edDataGridView.SelectionChanged += new System.EventHandler(this.OnDataGridView_SelectionChanged);
             this.edDataGridView.DoubleClick += new EventHandler(this.OnToolStripButtonEdit_Click);
-            //ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
-            //contextMenuStrip.Items.AddRange(new[] { this.toolStripButton_Add, this.toolStripButton_Edit, this.toolStripButton_Delete });
-            //this.edDataGridView.ContextMenuStrip = contextMenuStrip;
             // 
             // MainForm
             // 
