@@ -49,7 +49,7 @@ namespace EDManagerApp
         {
             if (e.BindingCompleteState != BindingCompleteState.Success)
             {
-                MainForm.InfoMessageBox("Ошибка ввода данных:\r\n " + e.ErrorText);
+                Utils.InfoMessageBox("Ошибка ввода данных:\r\n " + e.ErrorText);
             }
         }
     }
