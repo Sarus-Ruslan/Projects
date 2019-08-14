@@ -57,9 +57,10 @@ namespace EDManagerApp
         {
             Logger.WriteLine("Запуск программы");
 
-            edStorage = new EDStorage();
+            this.edStorage = new EDStorage();
 
             InitializeComponent();
+
             this.edDataGridView.AutoGenerateColumns = true;
             this.edBindingSource.DataSource = this.edStorage.EdDataSet;
 

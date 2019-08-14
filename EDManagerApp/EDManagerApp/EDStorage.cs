@@ -22,7 +22,7 @@ namespace EDManagerApp
         /// <summary>
         /// Путь к файлу хранилищю документов
         /// </summary>
-        private string storagePath = null;
+        private string storagePath;
         /// <summary>
         /// Диалог открытия файла хранилища
         /// </summary>
