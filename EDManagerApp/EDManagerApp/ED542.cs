@@ -22,20 +22,8 @@ namespace EDManagerApp
     /// <summary>
     /// Электронный документ ED542 (Запрос на повторное получение сообщения)
     /// </summary>
-    public class ED542
+    public class ED542 : EDRefID
     {
-        /// <summary>
-        /// Номер ЭС в течение опердня
-        /// </summary>
-        private int? m_EDNo;
-        /// <summary>
-        /// Дата составления ЭС
-        /// </summary>
-        private DateTime? m_EDDate;
-        /// <summary>
-        /// Уникальный идентификатор составителя ЭС - УИС
-        /// </summary>
-        private string m_EDAuthor;
         /// <summary>
         /// Тип запроса
         /// </summary>
@@ -54,7 +42,6 @@ namespace EDManagerApp
         /// </summary>
         public ED542()
         {
-            m_EDDate = DateTime.Today;
             m_EDTypeNo = "0542";
             m_ARMNo = null;
             m_RepeatReceptInqCode = RepeatReceptInqCode.GetED_1;
@@ -67,60 +54,6 @@ namespace EDManagerApp
         public ED542(ED542 eD542)
         {
             this.CopyFrom(eD542);
-        }
-        /// <summary>
-        /// Номер ЭС в течение опердня
-        /// </summary>
-        public int? EDNo
-        {
-            get => m_EDNo;
-            set
-            {
-                if (value != null)
-                {
-                    if (value < 0)
-                    {
-                        throw new Exception("Значение EDNo должно быть больше 0.");
-                    }
-                    else
-                    if (value > 999999999)
-                    {
-                        throw new Exception("Значение EDNo должно содержать менее 10 разрядов.");
-                    }
-                }
-                m_EDNo = value;
-            }
-        }
-        /// <summary>
-        /// Дата составления ЭС
-        /// </summary>
-        public DateTime? EDDate
-        {
-            get => m_EDDate;
-            set => m_EDDate = value;
-        }
-        /// <summary>
-        /// Уникальный идентификатор составителя ЭС - УИС
-        /// </summary>
-        public string EDAuthor
-        {
-            get => m_EDAuthor;
-            set
-            {
-                if (value != null)
-                {
-                    if (value.Length != 10)
-                    {
-                        throw new Exception("Значение EDAuthor должно содержать 10 знаков.");
-                    }
-                    else
-                    if (!value.All(c => Char.IsDigit(c)))
-                    {
-                        throw new Exception("Значение EDAuthor должно содержать только цифровые символы.");
-                    }
-                }
-                m_EDAuthor = value;
-            }
         }
         /// <summary>
         /// Тип запроса
@@ -185,21 +118,10 @@ namespace EDManagerApp
         /// Формирование xml-строки из данных документа
         /// </summary>
         /// <returns>xml-строка</returns>
-        public string ToXmlStr()
+        public new string ToXmlStr()
         {
             string xmlStr = $"<ED542 ";
-            if (this.EDNo != null)
-            {
-                xmlStr += $" EDNo=\"{this.EDNo}\"";
-            }
-            if (this.EDDate != null)
-            {
-                xmlStr += $" EDDate=\"{String.Format("{0:yyyy-MM-dd}", this.EDDate)}\"";
-            }
-            if (this.EDAuthor != null)
-            {
-                xmlStr += $" EDAuthor=\"{this.EDAuthor}\"";
-            }
+            xmlStr += base.ToXmlStr();
             xmlStr += $" RepeatReceptInqCode=\"{Convert.ToInt32(this.RepeatReceptInqCode)}\"";
             if (this.EDTypeNo != null)
             {
@@ -217,52 +139,17 @@ namespace EDManagerApp
         /// Загрузка данных документа из xml-строки
         /// </summary>
         /// <param name="xmlStr">xml-строка</param>
-        public void FromXmlStr(string xmlStr)
+        public new void FromXmlStr(string xmlStr)
         {
+            base.FromXmlStr(xmlStr);
+
             var doc = new XmlDocument();
             doc.PreserveWhitespace = true;
             doc.LoadXml(xmlStr);
 
             XmlAttributeCollection attrColl = doc.DocumentElement.Attributes;
 
-            var attr = (XmlAttribute)attrColl.GetNamedItem("EDNo");
-            if (attr != null)
-            {
-                try
-                {
-                    EDNo = Convert.ToInt32(attr.Value);
-                }
-                catch (Exception e)
-                {
-                    throw new Exception("[EDNo] " + e.Message);
-                }
-            }
-            else
-            {
-                EDNo = null;
-            }
-
-            attr = (XmlAttribute)attrColl.GetNamedItem("EDDate");
-            if (attr != null)
-            {
-                try
-                {
-                    EDDate = Convert.ToDateTime(attr.Value);
-                }
-                catch (Exception e)
-                {
-                    throw new Exception("[EDDate] " + e.Message);
-                }
-            }
-            else
-            {
-                EDDate = null;
-            }
-
-            attr = (XmlAttribute)attrColl.GetNamedItem("EDAuthor");
-            EDAuthor = attr?.Value;
-
-            attr = (XmlAttribute)attrColl.GetNamedItem("RepeatReceptInqCode");
+            var attr = (XmlAttribute)attrColl.GetNamedItem("RepeatReceptInqCode");
             if (attr != null)
             {
                 try
@@ -313,15 +200,13 @@ namespace EDManagerApp
         /// <summary>
         /// Копирование данных из указанного документа (без проверки корректности)
         /// </summary>
-        /// <param name="eD542">Документ источник</param>
-        public void CopyFrom(ED542 eD542)
+        /// <param name="edSource">Документ источник</param>
+        public void CopyFrom(ED542 edSource)
         {
-            this.m_EDNo = eD542.EDNo;
-            this.m_EDDate = eD542.EDDate;
-            this.m_EDAuthor = eD542.EDAuthor;
-            this.m_RepeatReceptInqCode = eD542.RepeatReceptInqCode;
-            this.m_EDTypeNo = eD542.EDTypeNo;
-            this.m_ARMNo = eD542.ARMNo;
+            base.CopyFrom(edSource);
+            this.m_RepeatReceptInqCode = edSource.RepeatReceptInqCode;
+            this.m_EDTypeNo = edSource.EDTypeNo;
+            this.m_ARMNo = edSource.ARMNo;
         }
     }
 }

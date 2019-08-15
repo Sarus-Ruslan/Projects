@@ -70,6 +70,7 @@
     <Compile Include="ED542Form.Designer.cs">
       <DependentUpon>ED542Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="EDRefID.cs" />
     <Compile Include="EDStorage.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MainForm.cs">

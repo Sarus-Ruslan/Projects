@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="UnitTestED542.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTestEDRefID.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
